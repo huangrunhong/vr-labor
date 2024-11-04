@@ -19,7 +19,7 @@ const App = () => (
 
     <Canvas>
       <XR store={store}>
-        <Environment files="/berlin.hdr" background />
+        <Environment files="/vr-labor/berlin.hdr" background />
         <Camera />
         <Room />
         <Stats />

@@ -16,7 +16,7 @@ const play = (
 };
 
 const Room = () => {
-  const { animations, scene, nodes } = useGLTF("/room.glb");
+  const { animations, scene, nodes } = useGLTF("/vr-labor/room.glb");
   const { actions } = useAnimations(animations, scene);
   console.log(actions);
 
