@@ -22,14 +22,18 @@ const Room = () => {
   const { animations, scene, nodes } = useGLTF("/vr-labor/room.glb");
   const { actions } = useAnimations(animations, scene);
 
-  useFrame((state) => {
-    const object = nodes["Door_moving_lobby"];
-    const action = actions["Door_entrance"];
+  const playAction = (obj: string, act: string) => {
+    useFrame((state) => {
+      const object = nodes[obj];
+      const action = actions[act];
 
-    xrSession
-      ? play(xr.origin, object, action)
-      : play(state.camera, object, action);
-  });
+      xrSession
+        ? play(xr.origin, object, action)
+        : play(state.camera, object, action);
+    });
+  };
+
+  playAction("Door_moving_lobby", "Door_entrance");
 
   return <primitive object={scene} />;
 };
