@@ -1,13 +1,14 @@
 import { useAnimations, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { AnimationAction, Camera, Object3D, Vector2 } from "three";
+import { useSessionFeatureEnabled, useXR } from "@react-three/xr";
+import { AnimationAction, Object3D, Vector2 } from "three";
 
 const play = (
-  camera: Camera,
+  camera?: Object3D,
   object?: Object3D,
   action?: AnimationAction | null
 ) => {
-  if (!object || !action) return;
+  if (!camera || !object || !action) return;
 
   const stand = new Vector2(camera.position.x, camera.position.z);
   const target = new Vector2(object.position.x, object.position.z);
@@ -16,12 +17,18 @@ const play = (
 };
 
 const Room = () => {
+  const xr = useXR();
+  const xrSession = useSessionFeatureEnabled("immersive-vr");
   const { animations, scene, nodes } = useGLTF("/vr-labor/room.glb");
   const { actions } = useAnimations(animations, scene);
-  console.log(actions);
 
   useFrame((state) => {
-    play(state.camera, nodes["Door_moving_lobby"], actions["Door_entrance"]);
+    const object = nodes["Door_moving_lobby"];
+    const action = actions["Door_entrance"];
+
+    xrSession
+      ? play(xr.origin, object, action)
+      : play(state.camera, object, action);
   });
 
   return <primitive object={scene} />;
