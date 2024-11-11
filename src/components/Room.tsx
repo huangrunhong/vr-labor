@@ -13,7 +13,7 @@ const play = (
   const stand = new Vector2(camera.position.x, camera.position.z);
   const target = new Vector2(object.position.x, object.position.z);
 
-  stand.distanceTo(target) < 2 ? action.play() : action.reset();
+  stand.distanceTo(target) < 3 ? action.play() : action.reset();
 };
 
 const Room = () => {
