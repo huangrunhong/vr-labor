@@ -48,7 +48,7 @@ const Printer = () => {
         decay={0}
         intensity={Math.PI}
       />
-      <RingButton x={1.658} y={1.245} z={0.2} onClick={openDoor} />
+      <RingButton x={0.45} y={1.36} z={0.25} onClick={openDoor} />
       <RingButton x={1.538} y={1.245} z={0.2} onClick={startPrinter} />
       <mesh position={[0, 0.1, 0]} castShadow>
         <primitive object={scene} />
