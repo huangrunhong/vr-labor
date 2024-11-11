@@ -21,7 +21,7 @@ const Printer = () => {
 
     door.play();
 
-    windowAnimationTimeScale = -windowAnimationTimeScale;
+    // windowAnimationTimeScale = -windowAnimationTimeScale;
   };
 
   const startPrinter = () => {

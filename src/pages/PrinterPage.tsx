@@ -25,7 +25,7 @@ const PrinterPage = () => {
             <Printer />
           </Locomotion>
           <Environment files="/vr-labor/berlin.hdr" background />
-          <Camera x={0} y={1.6} z={6} />
+          <Camera x={0} y={1.6} z={4} />
         </XR>
       </Canvas>
     </main>
