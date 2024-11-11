@@ -21,7 +21,7 @@ const RingButton = ({ x, y, z, onClick }: RingButtonProps) => {
   return (
     <group position={new Vector3(x, y, z)} onClick={onClick}>
       <mesh>
-        <ringGeometry args={[0.025, 0.04]} />
+        <ringGeometry args={[0.035, 0.06]} />
         <animated.meshBasicMaterial
           color={0xffffff}
           transparent
@@ -29,7 +29,7 @@ const RingButton = ({ x, y, z, onClick }: RingButtonProps) => {
         />
       </mesh>
       <mesh>
-        <circleGeometry args={[0.025]} />
+        <circleGeometry args={[0.035]} />
         <meshBasicMaterial color={0xffffff} transparent opacity={0.8} />
       </mesh>
     </group>

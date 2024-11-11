@@ -3,12 +3,19 @@ import {
   XROrigin,
   useXRControllerLocomotion,
 } from "@react-three/xr";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Group, Vector3 } from "three";
 
-const Locomotion = ({ children }: React.PropsWithChildren) => {
+interface LocomotionProps {
+  children: React.ReactNode;
+  x: number;
+  y: number;
+  z: number;
+}
+
+const Locomotion = ({ children, x, y, z }: LocomotionProps) => {
   const ref = useRef<Group>(null);
-  const [position, setPosition] = useState(new Vector3(-6, 1.6, 0));
+  const [position, setPosition] = useState(new Vector3(x, y, z));
 
   useXRControllerLocomotion(ref);
 

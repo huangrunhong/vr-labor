@@ -21,7 +21,7 @@ const PrinterPage = () => {
       </IfSessionModeSupported>
       <Canvas shadows>
         <XR store={store}>
-          <Locomotion>
+          <Locomotion x={0} y={1.6} z={4}>
             <Printer />
           </Locomotion>
           <Environment files="/vr-labor/berlin.hdr" background />

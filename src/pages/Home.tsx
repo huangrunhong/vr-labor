@@ -23,7 +23,7 @@ const Home = () => (
     </IfSessionModeSupported>
     <Canvas>
       <XR store={store}>
-        <Locomotion>
+        <Locomotion x={-6} y={1.6} z={0}>
           <Room />
           <Annotation />
         </Locomotion>
