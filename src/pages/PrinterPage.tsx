@@ -4,6 +4,7 @@ import { Environment } from "@react-three/drei";
 
 import Camera from "../components/Camera";
 import Printer from "../components/Printer";
+import Locomotion from "../components/Locomotion";
 
 const store = createXRStore({
   hand: { teleportPointer: true },
@@ -20,7 +21,9 @@ const PrinterPage = () => {
       </IfSessionModeSupported>
       <Canvas shadows>
         <XR store={store}>
-          <Printer />
+          <Locomotion>
+            <Printer />
+          </Locomotion>
           <Environment files="/vr-labor/berlin.hdr" background />
           <Camera x={0} y={1.6} z={6} />
         </XR>
