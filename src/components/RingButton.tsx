@@ -1,16 +1,7 @@
 import { animated, config, useSpring } from "@react-spring/three";
-import { ThreeEvent } from "@react-three/fiber";
+import { GroupProps } from "@react-three/fiber";
 
-import { Vector3 } from "three";
-
-interface RingButtonProps {
-  x: number;
-  y: number;
-  z: number;
-  onClick?: (event: ThreeEvent<MouseEvent>) => void;
-}
-
-const RingButton = ({ x, y, z, onClick }: RingButtonProps) => {
+const RingButton = (props: GroupProps) => {
   const spring = useSpring({
     config: config.gentle,
     loop: { reverse: true },
@@ -19,7 +10,7 @@ const RingButton = ({ x, y, z, onClick }: RingButtonProps) => {
   });
 
   return (
-    <group position={new Vector3(x, y, z)} onClick={onClick}>
+    <group {...props}>
       <mesh>
         <ringGeometry args={[0.035, 0.06]} />
         <animated.meshBasicMaterial
