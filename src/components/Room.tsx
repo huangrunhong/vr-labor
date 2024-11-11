@@ -34,6 +34,7 @@ const Room = () => {
   };
 
   playAction("Door_moving_lobby", "Door_entrance");
+  playAction("Door_moving_social_space", "Door_social_space");
 
   return <primitive object={scene} />;
 };

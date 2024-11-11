@@ -10,6 +10,14 @@ body {
   overflow: hidden;
 }
 
+html,
+body,
+#root {
+  height: 100%;
+  margin: unset;
+  position: relative;
+}
+
 main {
   position: relative;
   height: 100%;
@@ -39,4 +47,22 @@ button {
   left: 0;
   z-index: 1;
   backdrop-filter: blur(8px);
+}
+
+.annotation {
+  background: #222;
+  color: white;
+  padding: 0.25rem 1rem;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+
+  &:hover {
+    box-shadow: inset 250px 0 0 0 white;
+    color: black;
+  }
 }

@@ -23,7 +23,13 @@ const findFloor = (objects: Object3D[]) => {
   return isGroundObject(intersection) ? intersection : undefined;
 };
 
-const Camera = () => {
+interface cameraProps {
+  x: number;
+  y: number;
+  z: number;
+}
+
+const Camera = ({ x, y, z }: cameraProps) => {
   const state = useThree();
 
   const circle = useRef<Mesh>(null);
@@ -31,7 +37,7 @@ const Camera = () => {
 
   const count = useRef(0);
   const euler = useMemo(() => new Euler(0, 0, 0, "YXZ"), []);
-  const position = useMemo(() => new Vector3(-6, 1.6, -1), []);
+  const position = useMemo(() => new Vector3(x, y, z), []);
 
   const [teleport, setTeleport] = useState(false);
 

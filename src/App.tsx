@@ -1,36 +1,15 @@
-import { Canvas } from "@react-three/fiber";
-import { Environment, Stats } from "@react-three/drei";
-import { IfSessionModeSupported, XR, createXRStore } from "@react-three/xr";
+import { HashRouter, Route, Routes } from "react-router-dom";
 
-import Camera from "./components/Camera";
-import Locomotion from "./components/Locomotion";
-import Room from "./components/Room";
-
-import "./styles/app.scss";
-
-const store = createXRStore({
-  hand: { teleportPointer: true },
-  controller: { teleportPointer: true },
-});
+import Home from "./pages/Home";
+import PrinterPage from "./pages/PrinterPage";
 
 const App = () => (
-  <main>
-    <IfSessionModeSupported mode="immersive-vr">
-      <div className="vr">
-        <button onClick={() => store.enterVR()}>Enter VR</button>
-      </div>
-    </IfSessionModeSupported>
-    <Canvas>
-      <XR store={store}>
-        <Locomotion>
-          <Room />
-        </Locomotion>
-        <Environment files="/vr-labor/berlin.hdr" background />
-        <Camera />
-        <Stats />
-      </XR>
-    </Canvas>
-  </main>
+  <HashRouter>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/printer" element={<PrinterPage />} />
+    </Routes>
+  </HashRouter>
 );
 
 export default App;
