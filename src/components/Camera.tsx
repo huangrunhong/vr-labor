@@ -12,12 +12,10 @@ import {
 import { PerspectiveCamera as PerspectiveCameraComponent } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 
-const raycaster = new Raycaster();
-
 const isGroundObject = (intersection?: Intersection<Object3D>) =>
   intersection?.object.name.toLowerCase().startsWith("ground");
 
-const findFloor = (objects: Object3D[]) => {
+const findFloor = (raycaster: Raycaster, objects: Object3D[]) => {
   const [intersection] = raycaster.intersectObjects(objects);
 
   return isGroundObject(intersection) ? intersection : undefined;
@@ -38,6 +36,7 @@ const Camera = ({ x, y, z }: cameraProps) => {
   const count = useRef(0);
   const euler = useMemo(() => new Euler(0, 0, 0, "YXZ"), []);
   const position = useMemo(() => new Vector3(x, y, z), []);
+  const raycaster = useMemo(() => new Raycaster(), []);
 
   const [teleport, setTeleport] = useState(false);
 
@@ -52,7 +51,7 @@ const Camera = ({ x, y, z }: cameraProps) => {
 
       raycaster.setFromCamera(new Vector2(x, y), camera.current);
 
-      const floor = findFloor(state.scene.children);
+      const floor = findFloor(raycaster, state.scene.children);
 
       setTeleport(!!floor);
 
