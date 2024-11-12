@@ -1,4 +1,4 @@
-import { Box, Cylinder } from "@react-three/drei";
+import { Box } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -36,10 +36,6 @@ const VRButton = () => {
       >
         <meshStandardMaterial color={hovered ? "orange" : color} />
       </Box>
-
-      {/* <Cylinder position={[2, 1.5, -2]} attach="geometry" args={[1, 1, 1, 1]}>
-        <meshNormalMaterial attach="material" />
-      </Cylinder> */}
     </>
   );
 };
