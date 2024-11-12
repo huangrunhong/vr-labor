@@ -30,13 +30,13 @@ const Home = () => {
       <Canvas>
         <XR store={store}>
           <Locomotion x={-6} y={0} z={0}>
+            <VRButton />
             <Room />
             <RingButton
               position={new Vector3(3.2, 1.35, -2)}
               onClick={() => navigate("/printer")}
               rotation-y={Math.PI}
             />
-            <VRButton />
           </Locomotion>
           <Environment files="/vr-labor/berlin.hdr" background />
           <Camera x={-6} y={1.6} z={-1} />
