@@ -3,6 +3,8 @@ import { LoopOnce, Vector3 } from "three";
 
 import Ground from "../components/Ground";
 import RingButton from "../components/RingButton";
+import Camera from "../components/Camera";
+import Locomotion from "../components/Locomotion";
 
 let windowAnimationTimeScale = 1;
 let printerAnimationTimeScale = 1;
@@ -45,10 +47,12 @@ const Printer = () => {
 
   return (
     <>
-      <mesh position={[0, 0.1, 0]}>
+      <mesh position={[0, 0, 0]}>
         <primitive object={scene} />
       </mesh>
       <Ground />
+      <Camera x={0} y={1.6} z={4} />
+      <Locomotion x={0} y={0} z={4} />
       <RingButton onClick={openDoor} position={doorButtonPosition} />
       <RingButton onClick={startPrinter} position={startButtonPosition} />
     </>

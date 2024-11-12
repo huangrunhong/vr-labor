@@ -4,6 +4,8 @@ import { useSessionFeatureEnabled, useXR } from "@react-three/xr";
 import { useNavigate } from "react-router-dom";
 import { AnimationAction, Object3D, Vector2, Vector3 } from "three";
 
+import Camera from "../components/Camera";
+import Locomotion from "../components/Locomotion";
 import RingButton from "../components/RingButton";
 
 const position = new Vector3(-2.75, 1.35, 0.8);
@@ -46,6 +48,8 @@ const HomePage = () => {
 
   return (
     <>
+      <Camera x={-6} y={1.6} z={-1} />
+      <Locomotion x={-6} y={0} z={-1} />
       <primitive object={scene} />
       <mesh rotation-y={Math.PI}>
         <RingButton onClick={viewPrinter} position={position} />
