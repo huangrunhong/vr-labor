@@ -1,40 +1,58 @@
-import { Canvas } from "@react-three/fiber";
-import {
-  createXRStore,
-  IfSessionModeSupported,
-  PointerEvents,
-  XR,
-} from "@react-three/xr";
-import { Environment } from "@react-three/drei";
+import { useAnimations, useGLTF } from "@react-three/drei";
+import { LoopOnce, Vector3 } from "three";
 
-import Camera from "../components/Camera";
-import Printer from "../components/Printer";
-import Locomotion from "../components/Locomotion";
-import Ground from "../components/Group";
+import Ground from "../components/Ground";
+import RingButton from "../components/RingButton";
 
-const store = createXRStore({
-  hand: false,
-  controller: { teleportPointer: false, rayPointer: true },
-});
+let windowAnimationTimeScale = 1;
+let printerAnimationTimeScale = 1;
 
-const PrinterPage = () => (
-  <main>
-    <IfSessionModeSupported mode="immersive-vr">
-      <div className="vr">
-        <button onClick={() => store.enterVR()}>Enter VR</button>
-      </div>
-    </IfSessionModeSupported>
-    <Canvas shadows>
-      <XR store={store}>
-        <Printer />
-        <Locomotion x={0} y={0} z={4} />
-        <Ground />
-        <PointerEvents />
-        <Environment files="/vr-labor/berlin.hdr" background />
-        <Camera x={0} y={1.6} z={4} />
-      </XR>
-    </Canvas>
-  </main>
-);
+const doorButtonPosition = new Vector3(0.4, 1.36, 0.25);
+const startButtonPosition = new Vector3(1.538, 1.245, 0.2);
 
-export default PrinterPage;
+const Printer = () => {
+  const { animations, scene } = useGLTF("/vr-labor/printer.glb");
+  const { actions } = useAnimations(animations, scene);
+
+  const openDoor = () => {
+    const door = actions["Door"];
+
+    if (!door) return;
+
+    door.reset();
+    door.setLoop(LoopOnce, 1);
+    door.timeScale = windowAnimationTimeScale;
+
+    door.play();
+
+    windowAnimationTimeScale = -windowAnimationTimeScale;
+  };
+
+  const startPrinter = () => {
+    const printer = actions["Start"];
+
+    if (!printer) return;
+
+    printer.reset();
+    printer.warp(0, 2, 1);
+    printer.setLoop(LoopOnce, 1);
+    printer.timeScale = printerAnimationTimeScale;
+
+    printer.play();
+
+    printerAnimationTimeScale = -printerAnimationTimeScale;
+  };
+
+  return (
+    <>
+      <mesh position={[0, 0.1, 0]}>
+        <primitive object={scene} />
+      </mesh>
+      <Ground />
+      <RingButton onClick={openDoor} position={doorButtonPosition} />
+      <RingButton onClick={startPrinter} position={startButtonPosition} />
+    </>
+  );
+};
+
+export default Printer;

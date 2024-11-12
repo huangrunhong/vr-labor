@@ -1,7 +1,12 @@
 import { useAnimations, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useSessionFeatureEnabled, useXR } from "@react-three/xr";
-import { AnimationAction, Object3D, Vector2 } from "three";
+import { useNavigate } from "react-router-dom";
+import { AnimationAction, Object3D, Vector2, Vector3 } from "three";
+
+import RingButton from "../components/RingButton";
+
+const position = new Vector3(-2.75, 1.35, 0.8);
 
 const play = (
   camera?: Object3D,
@@ -16,7 +21,8 @@ const play = (
   stand.distanceTo(target) < 3 ? action.play() : action.reset();
 };
 
-const Room = () => {
+const HomePage = () => {
+  const navigate = useNavigate();
   const xr = useXR();
   const xrSession = useSessionFeatureEnabled("immersive-vr");
   const { animations, scene, nodes } = useGLTF("/vr-labor/room.glb");
@@ -36,7 +42,16 @@ const Room = () => {
   playAction("Door_moving_lobby", "Door_entrance");
   playAction("Door_moving_social_space", "Door_social_space");
 
-  return <primitive object={scene} />;
+  const viewPrinter = () => navigate("/printer");
+
+  return (
+    <>
+      <primitive object={scene} />
+      <mesh rotation-y={Math.PI}>
+        <RingButton onClick={viewPrinter} position={position} />
+      </mesh>
+    </>
+  );
 };
 
-export default Room;
+export default HomePage;
