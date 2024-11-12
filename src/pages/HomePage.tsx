@@ -42,10 +42,7 @@ const HomePage = () => {
   playAction("Door_moving_lobby", "Door_entrance");
   playAction("Door_moving_social_space", "Door_social_space");
 
-  const viewPrinter = () => {
-    navigate("/printer");
-    xr.origin?.position.set(0, 0, 4);
-  };
+  const viewPrinter = () => navigate("/printer");
 
   return (
     <>

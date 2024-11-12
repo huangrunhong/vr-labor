@@ -7,14 +7,14 @@ import Scene from "./components/Scene";
 import "./styles/app.scss";
 
 const App = () => (
-  <Scene>
-    <HashRouter>
+  <HashRouter>
+    <Scene>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/printer" element={<PrinterPage />} />
       </Routes>
-    </HashRouter>
-  </Scene>
+    </Scene>
+  </HashRouter>
 );
 
 export default App;

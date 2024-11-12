@@ -44,14 +44,14 @@ const Printer = () => {
   };
 
   return (
-    <>
-      <mesh position={[0, 0.1, 0]}>
+    <group position={[0, 0, -4]}>
+      <group position={[0, 0.1, 0]}>
         <primitive object={scene} />
-      </mesh>
+      </group>
       <Ground />
       <RingButton onClick={openDoor} position={doorButtonPosition} />
       <RingButton onClick={startPrinter} position={startButtonPosition} />
-    </>
+    </group>
   );
 };
 
