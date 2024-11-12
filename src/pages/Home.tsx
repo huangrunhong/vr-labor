@@ -13,7 +13,7 @@ import "../styles/app.scss";
 
 const store = createXRStore({
   hand: false,
-  controller: { teleportPointer: true, rayPointer: true },
+  controller: { teleportPointer: false, rayPointer: true },
 });
 
 const Home = () => {
@@ -28,14 +28,13 @@ const Home = () => {
       </IfSessionModeSupported>
       <Canvas>
         <XR store={store}>
-          <Locomotion x={-6} y={0} z={0}>
-            <Room />
-            <RingButton
-              position={new Vector3(3.2, 1.35, -1.5)}
-              onClick={() => navigate("/printer")}
-              rotation-y={Math.PI}
-            />
-          </Locomotion>
+          <Locomotion x={-6} y={0} z={0} />
+          <Room />
+          <RingButton
+            position={new Vector3(3.2, 1.35, -1.5)}
+            onClick={() => navigate("/printer")}
+            rotation-y={Math.PI}
+          />
           <Environment files="/vr-labor/berlin.hdr" background />
           <Camera x={-6} y={1.6} z={-1} />
           <Stats />

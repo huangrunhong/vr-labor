@@ -13,8 +13,8 @@ import Locomotion from "../components/Locomotion";
 import Ground from "../components/Group";
 
 const store = createXRStore({
-  controller: { teleportPointer: true },
-  hand: { teleportPointer: true, touchPointer: false },
+  hand: false,
+  controller: { teleportPointer: false, rayPointer: true },
 });
 
 const PrinterPage = () => (
@@ -27,9 +27,8 @@ const PrinterPage = () => (
     <Canvas shadows>
       <XR store={store}>
         <Printer />
-        <Locomotion x={0} y={0} z={4}>
-          <Ground />
-        </Locomotion>
+        <Locomotion x={0} y={0} z={4} />
+        <Ground />
         <PointerEvents />
         <Environment files="/vr-labor/berlin.hdr" background />
         <Camera x={0} y={1.6} z={4} />
