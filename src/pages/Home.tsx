@@ -10,6 +10,7 @@ import Room from "../components/Room";
 import RingButton from "../components/RingButton";
 
 import "../styles/app.scss";
+import VRButton from "../components/VrButton";
 
 const store = createXRStore({
   hand: { teleportPointer: true },
@@ -35,6 +36,7 @@ const Home = () => {
               onClick={() => navigate("/printer")}
               rotation-y={Math.PI}
             />
+            <VRButton />
           </Locomotion>
           <Environment files="/vr-labor/berlin.hdr" background />
           <Camera x={-6} y={1.6} z={-1} />

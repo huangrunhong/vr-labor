@@ -41,14 +41,7 @@ const Printer = () => {
 
   return (
     <>
-      <spotLight
-        position={[50, 50, 10]}
-        angle={0.15}
-        penumbra={1}
-        decay={0}
-        intensity={Math.PI}
-      />
-      <RingButton onClick={openDoor} position={new Vector3(0.45, 1.36, 0.25)} />
+      <RingButton onClick={openDoor} position={new Vector3(0.4, 1.36, 0.25)} />
       <RingButton
         onClick={startPrinter}
         position={new Vector3(1.538, 1.245, 0.2)}
