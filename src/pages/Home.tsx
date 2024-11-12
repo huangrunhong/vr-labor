@@ -10,7 +10,7 @@ import Room from "../components/Room";
 import RingButton from "../components/RingButton";
 
 import "../styles/app.scss";
-import VRButton from "../components/VrButton";
+import VRButton from "../components/Button";
 
 const store = createXRStore({
   hand: { teleportPointer: true },
