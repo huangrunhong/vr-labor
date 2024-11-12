@@ -10,11 +10,10 @@ import Room from "../components/Room";
 import RingButton from "../components/RingButton";
 
 import "../styles/app.scss";
-import VRButton from "../components/Button";
 
 const store = createXRStore({
-  hand: { teleportPointer: true },
-  controller: { teleportPointer: true },
+  hand: false,
+  controller: { teleportPointer: true, rayPointer: true },
 });
 
 const Home = () => {
@@ -30,10 +29,9 @@ const Home = () => {
       <Canvas>
         <XR store={store}>
           <Locomotion x={-6} y={0} z={0}>
-            <VRButton />
             <Room />
             <RingButton
-              position={new Vector3(3.2, 1.35, -2)}
+              position={new Vector3(3.2, 1.35, -1.5)}
               onClick={() => navigate("/printer")}
               rotation-y={Math.PI}
             />
