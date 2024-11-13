@@ -16,8 +16,6 @@ const Printer = () => {
   const printer1 = useGLTF("/vr-labor/printer1.glb");
   const printer2 = useGLTF("/vr-labor/printer2.glb");
   const printer3 = useGLTF("/vr-labor/printer3.glb");
-  const printer4 = useGLTF("/vr-labor/printer4.glb");
-  const printer5 = useGLTF("/vr-labor/printer5.glb");
 
   const { actions } = useAnimations(animations, scene);
 
@@ -64,12 +62,7 @@ const Printer = () => {
       <group position={[9, 0.1, 0]}>
         <primitive object={printer3.scene} />
       </group>
-      <group position={[-3, 0.1, 0]}>
-        <primitive object={printer4.scene} />
-      </group>
-      <group position={[-6, 0.1, 0]}>
-        <primitive object={printer5.scene} />
-      </group>
+
       <Ground />
       <RingButton onClick={openDoor} position={doorButtonPosition} />
       <RingButton onClick={startPrinter} position={startButtonPosition} />
