@@ -2,7 +2,7 @@ import { useAnimations, useGLTF } from "@react-three/drei";
 import { LoopOnce, Vector3 } from "three";
 
 import Ground from "../components/Ground";
-import Button1 from "../components/Button1";
+import CircleButton from "../components/CircleButton";
 
 let windowAnimationTimeScale = 1;
 let printerAnimationTimeScale = 1;
@@ -52,8 +52,8 @@ const Printer = () => {
         <primitive object={scene} />
       </group>
       <Ground />
-      <Button1 onClick={openDoor} position={doorButtonPosition} />
-      <Button1 onClick={startPrinter} position={startButtonPosition} />
+      <CircleButton onClick={openDoor} position={doorButtonPosition} />
+      <CircleButton onClick={startPrinter} position={startButtonPosition} />
     </group>
   );
 };
