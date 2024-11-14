@@ -4,9 +4,15 @@ import { useSessionFeatureEnabled, useXR } from "@react-three/xr";
 import { useNavigate } from "react-router-dom";
 import { AnimationAction, Object3D, Vector2, Vector3 } from "three";
 
-import RingButton from "../components/RingButton";
+import CircleButton from "../components/CircleButton";
+import { LoopOnce } from "three";
+
+let windowAnimationTimeScale = 1;
+let printerAnimationTimeScale = 1;
 
 const position = new Vector3(-2.75, 1.35, 0.8);
+const doorButtonPosition = new Vector3(-3.125, 1.35, 0.8);
+const startButtonPosition = new Vector3(-2.1, 1.25, 0.8);
 
 const play = (
   camera?: Object3D,
@@ -25,8 +31,39 @@ const HomePage = () => {
   const navigate = useNavigate();
   const xr = useXR();
   const xrSession = useSessionFeatureEnabled("immersive-vr");
-  const { animations, scene, nodes } = useGLTF("/vr-labor/room.glb");
+  const { animations, scene, nodes } = useGLTF(
+    "/vr-labor/room-with-printer.glb"
+  );
   const { actions } = useAnimations(animations, scene);
+
+  const openDoor = () => {
+    const door = actions["Door"];
+
+    if (!door) return;
+
+    door.reset();
+    door.setLoop(LoopOnce, 1);
+    door.timeScale = windowAnimationTimeScale;
+
+    door.play();
+
+    windowAnimationTimeScale = -windowAnimationTimeScale;
+  };
+
+  const startPrinter = () => {
+    const printer = actions["Start"];
+
+    if (!printer) return;
+
+    printer.reset();
+    printer.warp(0, 2, 1);
+    printer.setLoop(LoopOnce, 1);
+    printer.timeScale = printerAnimationTimeScale;
+
+    printer.play();
+
+    printerAnimationTimeScale = -printerAnimationTimeScale;
+  };
 
   const playAction = (obj: string, act: string) => {
     useFrame((state) => {
@@ -48,7 +85,9 @@ const HomePage = () => {
     <>
       <primitive object={scene} />
       <mesh rotation-y={Math.PI}>
-        <RingButton onClick={viewPrinter} position={position} />
+        {/* <RingButton onClick={viewPrinter} position={position} /> */}
+        <CircleButton onClick={openDoor} position={doorButtonPosition} />
+        <CircleButton onClick={startPrinter} position={startButtonPosition} />
       </mesh>
     </>
   );
