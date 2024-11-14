@@ -1,7 +1,7 @@
 import { useAnimations, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useSessionFeatureEnabled, useXR } from "@react-three/xr";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { AnimationAction, Object3D, Vector2, Vector3 } from "three";
 
 import CircleButton from "../components/CircleButton";
@@ -10,7 +10,7 @@ import { LoopOnce } from "three";
 let windowAnimationTimeScale = 1;
 let printerAnimationTimeScale = 1;
 
-const position = new Vector3(-2.75, 1.35, 0.8);
+// const position = new Vector3(-2.75, 1.35, 0.8);
 const doorButtonPosition = new Vector3(-3.125, 1.35, 0.8);
 const startButtonPosition = new Vector3(-2.1, 1.25, 0.8);
 
@@ -28,7 +28,7 @@ const play = (
 };
 
 const HomePage = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const xr = useXR();
   const xrSession = useSessionFeatureEnabled("immersive-vr");
   const { animations, scene, nodes } = useGLTF(
@@ -79,7 +79,7 @@ const HomePage = () => {
   playAction("Door_moving_lobby", "Door_entrance");
   playAction("Door_moving_social_space", "Door_social_space");
 
-  const viewPrinter = () => navigate("/printer");
+  // const viewPrinter = () => navigate("/printer");
 
   return (
     <>
