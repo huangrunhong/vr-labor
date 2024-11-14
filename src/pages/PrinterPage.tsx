@@ -2,7 +2,7 @@ import { useAnimations, useGLTF } from "@react-three/drei";
 import { LoopOnce, Vector3 } from "three";
 
 import Ground from "../components/Ground";
-import RingButton from "../components/RingButton";
+import Button1 from "../components/Button1";
 
 let windowAnimationTimeScale = 1;
 let printerAnimationTimeScale = 1;
@@ -12,10 +12,6 @@ const startButtonPosition = new Vector3(1.538, 1.245, 0.2);
 
 const Printer = () => {
   const { animations, scene } = useGLTF("/vr-labor/printer.glb");
-
-  const printer1 = useGLTF("/vr-labor/printer1.glb");
-  const printer2 = useGLTF("/vr-labor/printer2.glb");
-  const printer3 = useGLTF("/vr-labor/printer3.glb");
 
   const { actions } = useAnimations(animations, scene);
 
@@ -48,24 +44,16 @@ const Printer = () => {
     printerAnimationTimeScale = -printerAnimationTimeScale;
   };
 
+  console.log(<primitive object={scene} />);
+
   return (
     <group position={[0, 0, -4]}>
       <group position={[0, 0.1, 0]}>
         <primitive object={scene} />
       </group>
-      <group position={[3, 0.1, 0]}>
-        <primitive object={printer1.scene} />
-      </group>
-      <group position={[6, 0.1, 0]}>
-        <primitive object={printer2.scene} />
-      </group>
-      <group position={[9, 0.1, 0]}>
-        <primitive object={printer3.scene} />
-      </group>
-
       <Ground />
-      <RingButton onClick={openDoor} position={doorButtonPosition} />
-      <RingButton onClick={startPrinter} position={startButtonPosition} />
+      <Button1 onClick={openDoor} position={doorButtonPosition} />
+      <Button1 onClick={startPrinter} position={startButtonPosition} />
     </group>
   );
 };

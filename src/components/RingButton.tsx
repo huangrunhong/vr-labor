@@ -1,27 +1,26 @@
-import { animated, config, useSpring } from "@react-spring/three";
 import { GroupProps } from "@react-three/fiber";
+import { useState } from "react";
 
 const RingButton = (props: GroupProps) => {
-  const spring = useSpring({
-    config: config.gentle,
-    loop: { reverse: true },
-    from: { opacity: 0.1 },
-    to: { opacity: 0.4 },
-  });
+  const [hovered, setHovered] = useState(false);
 
   return (
-    <group {...props}>
+    <group
+      {...props}
+      onPointerOver={() => setHovered(true)}
+      onPointerOut={() => setHovered(false)}
+    >
       <mesh>
-        <ringGeometry args={[0.035, 0.06]} />
-        <animated.meshBasicMaterial
-          color={0xffffff}
+        <ringGeometry args={[0.06, 0.07]} />
+        <meshBasicMaterial
+          color={hovered ? 0x0064c0 : 0xffffff}
           transparent
-          opacity={spring.opacity}
+          opacity={1}
         />
       </mesh>
       <mesh>
-        <circleGeometry args={[0.035]} />
-        <meshBasicMaterial color={0xffffff} transparent opacity={0.8} />
+        <circleGeometry args={[0.06]} />
+        <meshBasicMaterial color={0xffffff} transparent opacity={0.6} />
       </mesh>
     </group>
   );
