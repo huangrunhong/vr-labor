@@ -14,7 +14,8 @@ const collisionDetection = (origin: Vector3, scene: Object3D, box = size) => {
 
     const box = new Box3().setFromObject(object);
 
-    collided ||= !box.containsBox(body) && box.intersectsBox(body);
+    collided ||=
+      !box.isEmpty() && !box.containsBox(body) && box.intersectsBox(body);
   });
 
   return collided;

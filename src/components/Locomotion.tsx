@@ -15,8 +15,8 @@ const Locomotion = ({ x, y, z }: LocomotionProps) => {
   useXRControllerLocomotion((translation, rotation, delta, state) => {
     if (!xr.origin) return;
 
-    const x = xr.origin.position.x + translation.x * delta;
-    const z = xr.origin.position.z + translation.z * delta;
+    const x = xr.origin.position.x + translation.x * delta * 5;
+    const z = xr.origin.position.z + translation.z * delta * 5;
 
     xr.origin.rotation.y += rotation;
 
