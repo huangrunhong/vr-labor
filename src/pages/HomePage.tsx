@@ -1,16 +1,18 @@
 import { useAnimations, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useSessionFeatureEnabled, useXR } from "@react-three/xr";
+import { useXR } from "@react-three/xr";
 
-import { AnimationAction, LoopOnce, Object3D, Vector2, Vector3 } from "three";
+import { AnimationAction, LoopOnce, Object3D, Vector3 } from "three";
 
 import CircleButton from "../components/CircleButton";
-
-let windowAnimationTimeScale = 1;
-let printerAnimationTimeScale = 1;
+import collisionDetection from "../helpers/collisionDetection";
 
 const doorButtonPosition = new Vector3(-3.125, 1.35, 0.8);
 const startButtonPosition = new Vector3(-2.1, 1.25, 0.8);
+
+const cameraBox = new Vector3(1.5, 0.5, 1.5);
+
+const modelPath = "/vr-labor/room-with-printer.glb";
 
 const play = (
   camera?: Object3D,
@@ -19,18 +21,16 @@ const play = (
 ) => {
   if (!camera || !object || !action) return;
 
-  const stand = new Vector2(camera.position.x, camera.position.z);
-  const target = new Vector2(object.position.x, object.position.z);
+  if (collisionDetection(camera.position, object, cameraBox)) {
+    return void action.play();
+  }
 
-  stand.distanceTo(target) < 3 ? action.play() : action.reset();
+  action.reset();
 };
 
 const HomePage = () => {
   const xr = useXR();
-  const xrSession = useSessionFeatureEnabled("immersive-vr");
-  const { animations, scene, nodes } = useGLTF(
-    "/vr-labor/room-with-printer.glb"
-  );
+  const { animations, scene, nodes } = useGLTF(modelPath);
   const { actions } = useAnimations(animations, scene);
 
   const openDoor = () => {
@@ -38,13 +38,9 @@ const HomePage = () => {
 
     if (!door) return;
 
-    door.reset();
-    door.setLoop(LoopOnce, 1);
-    door.timeScale = windowAnimationTimeScale;
-
     door.play();
-
-    windowAnimationTimeScale = -windowAnimationTimeScale;
+    door.setLoop(LoopOnce, 1);
+    door.reset();
   };
 
   const startPrinter = () => {
@@ -52,14 +48,10 @@ const HomePage = () => {
 
     if (!printer) return;
 
-    printer.reset();
     printer.warp(0, 2, 1);
     printer.setLoop(LoopOnce, 1);
-    printer.timeScale = printerAnimationTimeScale;
-
     printer.play();
-
-    printerAnimationTimeScale = -printerAnimationTimeScale;
+    printer.reset();
   };
 
   const playAction = (obj: string, act: string) => {
@@ -67,7 +59,7 @@ const HomePage = () => {
       const object = nodes[obj];
       const action = actions[act];
 
-      xrSession
+      xr.mode
         ? play(xr.origin, object, action)
         : play(state.camera, object, action);
     });
