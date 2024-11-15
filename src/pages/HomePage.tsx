@@ -1,27 +1,18 @@
 import { useAnimations, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useXR } from "@react-three/xr";
-
-import { AnimationAction, LoopOnce, Object3D, Vector3 } from "three";
+import { useNavigate } from "react-router-dom";
+import { AnimationAction, Object3D, Vector3 } from "three";
 
 import CircleButton from "../components/CircleButton";
 import collisionDetection from "../helpers/collisionDetection";
+import playOnce from "../helpers/playOnce";
 
-const doorButtonPosition = new Vector3(-3.125, 1.35, 0.8);
-const startButtonPosition = new Vector3(-2.1, 1.25, 0.8);
+const buttonPosition = new Vector3(-3.125, 1.35, 0.8);
 
 const cameraBox = new Vector3(1.5, 0.5, 1.5);
 
-const modelPath = "/vr-labor/room-with-printer.glb";
-
-const playOnce = (action: AnimationAction | null, endTimeScale = 1) => {
-  if (!action) return;
-
-  action.reset();
-  action.warp(0, endTimeScale, 1);
-  action.setLoop(LoopOnce, 1);
-  action.play();
-};
+const modelPath = "/vr-labor/room.glb";
 
 const play = (
   camera?: Object3D,
@@ -38,6 +29,7 @@ const play = (
 
 const HomePage = () => {
   const xr = useXR();
+  const navigate = useNavigate();
   const { animations, scene, nodes } = useGLTF(modelPath);
   const { actions } = useAnimations(animations, scene);
 
@@ -54,15 +46,16 @@ const HomePage = () => {
     playAction(nodes["Door_moving_social_space"], actions["Door_social_space"]);
   });
 
-  const openDoor = () => playOnce(actions["Door"]);
-  const startPrinter = () => playOnce(actions["Start"], 2);
+  const toPrinterPage = () => {
+    xr.session?.end();
+    navigate("/printer");
+  };
 
   return (
     <>
       <primitive object={scene} />
       <mesh rotation-y={Math.PI}>
-        <CircleButton onClick={openDoor} position={doorButtonPosition} />
-        <CircleButton onClick={startPrinter} position={startButtonPosition} />
+        <CircleButton onClick={toPrinterPage} position={buttonPosition} />
       </mesh>
     </>
   );
