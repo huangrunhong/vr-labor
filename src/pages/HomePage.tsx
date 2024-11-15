@@ -14,6 +14,15 @@ const cameraBox = new Vector3(1.5, 0.5, 1.5);
 
 const modelPath = "/vr-labor/room-with-printer.glb";
 
+const playOnce = (action: AnimationAction | null, endTimeScale = 1) => {
+  if (!action) return;
+
+  action.reset();
+  action.warp(0, endTimeScale, 1);
+  action.setLoop(LoopOnce, 1);
+  action.play();
+};
+
 const play = (
   camera?: Object3D,
   object?: Object3D,
@@ -21,11 +30,10 @@ const play = (
 ) => {
   if (!camera || !object || !action) return;
 
-  if (collisionDetection(camera.position, object, cameraBox)) {
-    return void action.play();
-  }
+  const running = action.isRunning();
+  const collided = collisionDetection(camera.position, object, cameraBox);
 
-  action.reset();
+  !running && collided && playOnce(action);
 };
 
 const HomePage = () => {
@@ -33,40 +41,21 @@ const HomePage = () => {
   const { animations, scene, nodes } = useGLTF(modelPath);
   const { actions } = useAnimations(animations, scene);
 
-  const openDoor = () => {
-    const door = actions["Door"];
-
-    if (!door) return;
-
-    door.play();
-    door.setLoop(LoopOnce, 1);
-    door.reset();
-  };
-
-  const startPrinter = () => {
-    const printer = actions["Start"];
-
-    if (!printer) return;
-
-    printer.warp(0, 2, 1);
-    printer.setLoop(LoopOnce, 1);
-    printer.play();
-    printer.reset();
-  };
-
-  const playAction = (obj: string, act: string) => {
-    useFrame((state) => {
-      const object = nodes[obj];
-      const action = actions[act];
-
+  useFrame((state) => {
+    const playAction = (
+      object: Object3D | undefined,
+      action: AnimationAction | null
+    ) =>
       xr.mode
         ? play(xr.origin, object, action)
         : play(state.camera, object, action);
-    });
-  };
 
-  playAction("Door_moving_lobby", "Door_entrance");
-  playAction("Door_moving_social_space", "Door_social_space");
+    playAction(nodes["Door_moving_lobby"], actions["Door_entrance"]);
+    playAction(nodes["Door_moving_social_space"], actions["Door_social_space"]);
+  });
+
+  const openDoor = () => playOnce(actions["Door"]);
+  const startPrinter = () => playOnce(actions["Start"], 2);
 
   return (
     <>
