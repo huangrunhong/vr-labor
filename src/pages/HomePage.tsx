@@ -10,7 +10,7 @@ import playOnce from "../helpers/playOnce";
 
 const buttonPosition = new Vector3(-3.125, 1.35, 0.8);
 
-const cameraBox = new Vector3(1.5, 0.5, 1.5);
+const cameraBox = new Vector3(1.5, 0.25, 1.5);
 
 const modelPath = "/vr-labor/room.glb";
 
