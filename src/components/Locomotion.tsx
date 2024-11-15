@@ -1,6 +1,5 @@
-import { useRef } from "react";
-import { Group, Vector3 } from "three";
-import { XROrigin, useXRControllerLocomotion } from "@react-three/xr";
+import { Vector3 } from "three";
+import { XROrigin, useXR, useXRControllerLocomotion } from "@react-three/xr";
 
 import collisionDetection from "../helpers/collisionDetection";
 
@@ -11,23 +10,23 @@ interface LocomotionProps {
 }
 
 const Locomotion = ({ x, y, z }: LocomotionProps) => {
-  const ref = useRef<Group>(null);
+  const xr = useXR();
 
   useXRControllerLocomotion((translation, rotation, delta, state) => {
-    if (!ref.current) return;
+    if (!xr.origin) return;
 
-    const x = ref.current.position.x + translation.x * delta;
-    const z = ref.current.position.z + translation.z * delta;
+    const x = xr.origin.position.x + translation.x * delta;
+    const z = xr.origin.position.z + translation.z * delta;
 
-    ref.current.rotation.y += rotation;
+    xr.origin.rotation.y += rotation;
 
     if (collisionDetection(new Vector3(x, 0, z), state.scene)) return;
 
-    ref.current.position.x = x;
-    ref.current.position.z = z;
+    xr.origin.position.x = x;
+    xr.origin.position.z = z;
   });
 
-  return <XROrigin ref={ref} position={new Vector3(x, y, z)} />;
+  return <XROrigin position={new Vector3(x, y, z)} />;
 };
 
 export default Locomotion;
