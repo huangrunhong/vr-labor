@@ -13,6 +13,8 @@ import { PerspectiveCamera as PerspectiveCameraComponent } from "@react-three/dr
 import { useFrame, useThree } from "@react-three/fiber";
 import { useLocation } from "react-router-dom";
 
+import collisionDetection from "../helpers/collisionDetection";
+
 const isGroundObject = (intersection?: Intersection<Object3D>) =>
   intersection?.object.name.toLowerCase().startsWith("ground");
 
@@ -65,10 +67,11 @@ const Camera = ({ x, y, z }: cameraProps) => {
       raycaster.setFromCamera(new Vector2(x, y), camera.current);
 
       const floor = findFloor(raycaster, state.scene.children);
+      const moveable = !!floor && !collisionDetection(floor.point, state.scene);
 
-      setTeleport(!!floor);
+      setTeleport(moveable);
 
-      if (floor && circle.current) {
+      if (moveable && circle.current) {
         circle.current.position.set(floor.point.x, 0.01, floor.point.z);
       }
 

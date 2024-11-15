@@ -2,10 +2,9 @@ import { useAnimations, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useSessionFeatureEnabled, useXR } from "@react-three/xr";
 
-import { AnimationAction, Object3D, Vector2, Vector3 } from "three";
+import { AnimationAction, LoopOnce, Object3D, Vector2, Vector3 } from "three";
 
 import CircleButton from "../components/CircleButton";
-import { LoopOnce } from "three";
 
 let windowAnimationTimeScale = 1;
 let printerAnimationTimeScale = 1;
