@@ -1,7 +1,7 @@
 import { Vector3 } from "three";
 import { XROrigin, useXR, useXRControllerLocomotion } from "@react-three/xr";
 
-import collisionDetection from "../helpers/collisionDetection";
+// import collisionDetection from "../helpers/collisionDetection";
 
 interface LocomotionProps {
   x: number;
@@ -12,7 +12,7 @@ interface LocomotionProps {
 const Locomotion = ({ x, y, z }: LocomotionProps) => {
   const xr = useXR();
 
-  useXRControllerLocomotion((translation, rotation, delta, state) => {
+  useXRControllerLocomotion((translation, rotation, delta) => {
     if (!xr.origin) return;
 
     const x = xr.origin.position.x + translation.x * delta * 5;
@@ -20,7 +20,7 @@ const Locomotion = ({ x, y, z }: LocomotionProps) => {
 
     xr.origin.rotation.y += rotation;
 
-    if (collisionDetection(new Vector3(x, 0, z), state.scene)) return;
+    // if (collisionDetection(new Vector3(x, 0, z), state.scene)) return;
 
     xr.origin.position.x = x;
     xr.origin.position.z = z;
