@@ -3,7 +3,7 @@ const Ground = () => (
     <planeGeometry args={[100, 100]} />
     <meshStandardMaterial
       color="grey"
-      roughness={0.35}
+      roughness={0.5}
       metalness={1}
       envMapIntensity={1.5}
     />
