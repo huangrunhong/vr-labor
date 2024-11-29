@@ -23,7 +23,11 @@ const Scene = ({ children, origin, store }: SceneProps) => (
         <Camera x={origin[0]} y={1.6} z={origin[1]} />
         <Locomotion x={origin[0]} y={0} z={origin[1]} />
         {children}
-        <Environment files="/vr-labor/berlin.hdr" background />
+        <Environment
+          files="/vr-labor/Outside_background_29112024.exr"
+          environmentIntensity={0.45}
+          background
+        />
         <Stats />
       </XR>
     </Canvas>
