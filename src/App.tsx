@@ -23,7 +23,14 @@ const App = () => (
       <Route
         path="/"
         element={
-          <Scene store={homeStore} origin={[-6, -1]}>
+          <Scene
+            store={homeStore}
+            origin={[-6, -1]}
+            environmentFile="/vr-labor/Outside_background_29112024.exr"
+            backgroundFile="/vr-labor/Outside_background_29112024.exr"
+            environmentIntensity={0.5}
+            backgroundIntensity={0}
+          >
             <HomePage />
           </Scene>
         }
@@ -31,7 +38,14 @@ const App = () => (
       <Route
         path="/printer"
         element={
-          <Scene store={printerStore} origin={[0, 0]}>
+          <Scene
+            store={printerStore}
+            origin={[0, 0]}
+            environmentFile="/vr-labor/studio_small_08_1k.hdr"
+            backgroundFile="/vr-labor/TUM_Additive_room_background.exr"
+            environmentIntensity={0.4}
+            backgroundIntensity={0}
+          >
             <PrinterPage />
           </Scene>
         }

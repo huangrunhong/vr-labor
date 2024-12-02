@@ -26,7 +26,7 @@ const Printer = () => {
 
   return (
     <group position={[0, 0, -4]}>
-      <group position={[0, 0.1, 0]}>
+      <group position={[0, 0.1, 0]} castShadow>
         <primitive object={scene} />
       </group>
       <VideoMaterial url={"/vr-labor/video.mp4"} />

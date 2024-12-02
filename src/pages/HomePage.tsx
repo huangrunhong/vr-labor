@@ -8,7 +8,7 @@ import CircleButton from "../components/CircleButton";
 import collisionDetection from "../helpers/collisionDetection";
 import playOnce from "../helpers/playOnce";
 
-const buttonPosition = new Vector3(-2.8, 1.35, -0.05);
+const buttonPosition = new Vector3(-2.8, 1.35, 0.5);
 
 const cameraBox = new Vector3(2, 0.25, 1.5);
 

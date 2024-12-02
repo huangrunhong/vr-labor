@@ -9,9 +9,21 @@ interface SceneProps {
   children: React.ReactNode;
   origin: [number, number];
   store: XRStore;
+  environmentFile: string;
+  environmentIntensity: number;
+  backgroundIntensity: number;
+  backgroundFile: string;
 }
 
-const Scene = ({ children, origin, store }: SceneProps) => (
+const Scene = ({
+  children,
+  origin,
+  store,
+  environmentFile,
+  backgroundFile,
+  environmentIntensity,
+  backgroundIntensity,
+}: SceneProps) => (
   <main>
     <IfSessionModeSupported mode="immersive-vr">
       <div className="vr">
@@ -24,9 +36,13 @@ const Scene = ({ children, origin, store }: SceneProps) => (
         <Locomotion x={origin[0]} y={0} z={origin[1]} />
         {children}
         <Environment
-          files="/vr-labor/Outside_background_29112024.exr"
-          environmentIntensity={0.45}
+          files={backgroundFile}
+          environmentIntensity={backgroundIntensity}
           background
+        />
+        <Environment
+          files={environmentFile}
+          environmentIntensity={environmentIntensity}
         />
         <Stats />
       </XR>
