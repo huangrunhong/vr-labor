@@ -21,8 +21,14 @@ const Printer = () => {
   const { animations, scene } = useGLTF("/vr-labor/printer.glb");
   const { actions } = useAnimations(animations, scene);
 
-  const openDoor = () => playOnce(actions["Door"]);
   const startPrinter = () => playOnce(actions["Start"], 2);
+
+  const onClick = () => {
+    const open = actions["openDoor"]?.time ?? 0;
+    const close = actions["doorClose"]?.time ?? 0;
+
+    playOnce(open <= close ? actions["openDoor"] : actions["doorClose"]);
+  };
 
   return (
     <group position={[0, 0, -4]}>
@@ -32,7 +38,7 @@ const Printer = () => {
       <VideoMaterial url={"/vr-labor/video.mp4"} />
       <Ground />
       <fog attach="fog" args={["#f0f0f0", 0, 20]} />
-      <CircleButton onClick={openDoor} position={doorButtonPosition} />
+      <CircleButton onClick={onClick} position={doorButtonPosition} />
       <CircleButton onClick={startPrinter} position={startButtonPosition} />
     </group>
   );
