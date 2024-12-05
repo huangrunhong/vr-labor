@@ -27,9 +27,7 @@ const App = () => (
             store={homeStore}
             origin={[-6, -1]}
             environmentFile="/vr-labor/Outside_background_29112024.exr"
-            backgroundFile="/vr-labor/Outside_background_29112024.exr"
             environmentIntensity={0.5}
-            backgroundIntensity={0}
           >
             <HomePage />
           </Scene>
@@ -41,10 +39,8 @@ const App = () => (
           <Scene
             store={printerStore}
             origin={[0, 0]}
-            environmentFile="/vr-labor/studio_small_08_1k.hdr"
-            backgroundFile="/vr-labor/TUM_Additive_room_background.exr"
-            environmentIntensity={0.4}
-            backgroundIntensity={0}
+            environmentFile="/vr-labor/B2L2room_background.exr"
+            environmentIntensity={1.2}
           >
             <PrinterPage />
           </Scene>
