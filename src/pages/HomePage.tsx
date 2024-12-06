@@ -54,6 +54,7 @@ const HomePage = () => {
   return (
     <>
       <primitive object={scene} />
+      <directionalLight position={[0, 0, 5]} />
       <mesh rotation-y={Math.PI}>
         <CircleButton onClick={toPrinterPage} position={buttonPosition} />
       </mesh>
