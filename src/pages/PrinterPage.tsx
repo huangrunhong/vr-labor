@@ -35,6 +35,7 @@ const Printer = () => {
       <group position={[0, 0.1, 0]} castShadow>
         <primitive object={scene} />
       </group>
+
       <VideoMaterial url={"/vr-labor/video.mp4"} />
       <Ground />
       <fog attach="fog" args={["#f0f0f0", 0, 20]} />

@@ -31,11 +31,12 @@ const Scene = ({
         <Camera x={origin[0]} y={1.6} z={origin[1]} />
         <Locomotion x={origin[0]} y={0} z={origin[1]} />
         {children}
-
+        <ambientLight intensity={0.5} />
         <Environment
           files={environmentFile}
           environmentIntensity={environmentIntensity}
           background
+          backgroundRotation={[0, Math.PI / 2.4, 0]}
         />
         <Stats />
       </XR>
