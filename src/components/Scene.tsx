@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import { Environment, Stats } from "@react-three/drei";
+import { Environment } from "@react-three/drei";
 import { IfSessionModeSupported, XR, XRStore } from "@react-three/xr";
 
 import Camera from "./Camera";
@@ -38,7 +38,7 @@ const Scene = ({
           background
           backgroundRotation={[0, Math.PI / 2.4, 0]}
         />
-        <Stats />
+        {/* <Stats /> */}
       </XR>
     </Canvas>
   </main>

@@ -51,12 +51,27 @@ const HomePage = () => {
     navigate("/printer");
   };
 
+  const openDoor = () => playOnce(actions["Door_entrance"], 2);
+  const openSocialSpace = () => playOnce(actions["Door_social_space"], 2);
+
   return (
     <>
       <primitive object={scene} />
       <directionalLight position={[0, 0, 5]} />
       <mesh rotation-y={Math.PI}>
         <CircleButton onClick={toPrinterPage} position={buttonPosition} />
+      </mesh>
+      <mesh rotation-y={Math.PI}>
+        <CircleButton onClick={openSocialSpace} position={[-6, 1.35, -3.2]} />
+      </mesh>
+      <mesh rotation-y={0}>
+        <CircleButton onClick={openSocialSpace} position={[8.1, 1.35, 3.3]} />
+      </mesh>
+      <mesh rotation-y={Math.PI / 2}>
+        <CircleButton onClick={openDoor} position={[4.2, 1.35, 0.3]} />
+      </mesh>
+      <mesh rotation-y={-Math.PI / 2}>
+        <CircleButton onClick={openDoor} position={[-2.5, 1.35, 0.2]} />
       </mesh>
     </>
   );

@@ -126,7 +126,7 @@ const Camera = ({ x, y, z }: cameraProps) => {
       {teleport && (
         <mesh ref={circle} rotation-x={-Math.PI / 2}>
           <ringGeometry args={[0.16, 0.2]} />
-          <meshBasicMaterial color={0xffffff} transparent opacity={0.5} />
+          <meshBasicMaterial color={0x0065bd} transparent opacity={0.5} />
         </mesh>
       )}
     </>
