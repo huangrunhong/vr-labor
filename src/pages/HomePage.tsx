@@ -13,6 +13,9 @@ const buttonPosition = new Vector3(-2.8, 1.35, 0.5);
 const cameraBox = new Vector3(2, 0.25, 1.5);
 
 const modelPath = "/vr-labor/room.glb";
+const logoPath = "/vr-labor/logo.glb";
+const printerSkinPath = "/vr-labor/printerSkin.glb";
+const vppSkinPath = "/vr-labor/vppSkin.glb";
 
 const play = (
   camera?: Object3D,
@@ -30,8 +33,11 @@ const play = (
 const HomePage = () => {
   const xr = useXR();
   const navigate = useNavigate();
-  const { animations, scene, nodes } = useGLTF(modelPath);
-  const { actions } = useAnimations(animations, scene);
+  const room = useGLTF(modelPath);
+  const printerSkin = useGLTF(printerSkinPath);
+  const vppSkin = useGLTF(vppSkinPath);
+  const logo = useGLTF(logoPath);
+  const roomActions = useAnimations(room.animations, room.scene);
 
   useFrame((state) => {
     const playAction = (
@@ -42,8 +48,14 @@ const HomePage = () => {
         ? play(xr.origin, object, action)
         : play(state.camera, object, action);
 
-    playAction(nodes["Door_moving_lobby"], actions["Door_entrance"]);
-    playAction(nodes["Door_moving_social_space"], actions["Door_social_space"]);
+    playAction(
+      room.nodes["Door_moving_lobby"],
+      roomActions.actions["Door_entrance"]
+    );
+    playAction(
+      room.nodes["Door_moving_social_space"],
+      roomActions.actions["Door_social_space"]
+    );
   });
 
   const toPrinterPage = () => {
@@ -51,13 +63,16 @@ const HomePage = () => {
     navigate("/printer");
   };
 
-  const openDoor = () => playOnce(actions["Door_entrance"], 2);
-  const openSocialSpace = () => playOnce(actions["Door_social_space"], 2);
+  const openDoor = () => playOnce(roomActions.actions["Door_entrance"], 2);
+  const openSocialSpace = () =>
+    playOnce(roomActions.actions["Door_social_space"], 2);
 
   return (
     <>
-      <primitive object={scene} />
-      <directionalLight position={[0, 0, 5]} />
+      <primitive object={room.scene} />
+      <primitive object={logo.scene} />
+      <primitive object={printerSkin.scene} />
+      <primitive object={vppSkin.scene} />
       <mesh rotation-y={Math.PI}>
         <CircleButton onClick={toPrinterPage} position={buttonPosition} />
       </mesh>

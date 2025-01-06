@@ -26,8 +26,8 @@ const App = () => (
           <Scene
             store={homeStore}
             origin={[-6, -1]}
-            environmentFile="/vr-labor/Outside_background_29112024.exr"
-            environmentIntensity={0.3}
+            environmentFile="/vr-labor/outside_background.exr"
+            environmentIntensity={1.2}
           >
             <HomePage />
           </Scene>
